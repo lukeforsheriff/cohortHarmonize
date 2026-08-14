@@ -13,7 +13,7 @@ reasons can still be harmonized.
 
 ```r
 # install.packages("remotes")
-remotes::install_github("lukemonnich/cohortHarmonize")
+remotes::install_github("lukeforsheriff/cohortHarmonize")
 ```
 
 Core dependencies are light (`readr`, `dplyr`, `tidyr`, `purrr`, `stringr`,
