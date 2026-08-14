@@ -30,6 +30,6 @@ Suggests:
     rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://github.com/lukemonnich/cohortHarmonize
-BugReports: https://github.com/lukemonnich/cohortHarmonize/issues
+URL: https://github.com/lukeforsheriff/cohortHarmonize
+BugReports: https://github.com/lukeforsheriff/cohortHarmonize/issues
 Config/roxygen2/version: 8.1.0
