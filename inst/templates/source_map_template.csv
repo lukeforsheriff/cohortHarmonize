@@ -1,0 +1,4 @@
+target_variable,source_columns,recode,param,note
+sex,gender,map,1=1;2=2,map raw gender codes
+age,dob;visit_date,age_from_dates,,DOB then visit date
+example_condition,cond;cond_fu,any_of,,yes at any timepoint

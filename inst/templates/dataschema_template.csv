@@ -1,0 +1,4 @@
+variable,domain,type,description
+sex,Demographics,integer,"1=Female, 2=Male, 3=Other"
+age,Demographics,integer,age in years
+example_condition,Health Conditions,integer,"0=no, 1=yes"

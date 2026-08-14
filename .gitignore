@@ -1,0 +1,16 @@
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# roxygen / build artifacts (man/ IS committed; these are not)
+/doc/
+/Meta/
+inst/doc/
+..Rcheck/
+*.tar.gz
+
+# macOS
+.DS_Store

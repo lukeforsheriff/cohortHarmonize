@@ -1,0 +1,35 @@
+Package: cohortHarmonize
+Title: Config-Driven Harmonization and Quality Control for Longitudinal Cohort Data
+Version: 0.1.0
+Authors@R:
+    person("Luke", "Monnich", email = "lukemonnich03@gmail.com", role = c("aut", "cre"))
+Description: A source-agnostic, metadata-driven toolkit for retrospectively
+    harmonizing longitudinal cohort datasets onto a shared DataSchema and grading
+    the result with a formal data-quality framework (the four dimensions of
+    Schmidt et al. 2021: integrity, completeness, consistency, accuracy). Raw data
+    can be read from CSV files, a REDCap API, statistical formats (SAS/SPSS/Stata)
+    or a database connection. A federated mode lets each site harmonize its own
+    data locally so that only harmonized outputs -- never raw records -- are
+    combined. Originally developed to harmonize the PEG and HBS Parkinson's cohorts.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 4.1)
+Imports:
+    readr,
+    dplyr,
+    purrr,
+    tibble
+Suggests:
+    REDCapR,
+    haven,
+    DBI,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/lukemonnich/cohortHarmonize
+BugReports: https://github.com/lukemonnich/cohortHarmonize/issues
+Config/roxygen2/version: 8.1.0

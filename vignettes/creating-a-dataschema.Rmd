@@ -1,0 +1,130 @@
+---
+title: "Creating a DataSchema and config files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating a DataSchema and config files}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+`cohortHarmonize` is driven entirely by three small CSV config files.
+This guide walks the user through writing them. Nothing about the engine
+itself changes between projects, instead the user has to alter only the
+config files.
+
+## 0. Scaffold blank templates
+
+```{r}
+library(cohortHarmonize)
+new_dataschema("dataschema.csv")
+new_source_map("peg_map.csv")
+new_dq_metadata("dq_metadata.csv")
+```
+
+## 1. The DataSchema — deciding what the user harmonizes *to*
+
+The DataSchema represents the shared harmonization target. One row per
+harmonized variable.
+
+Two resources about DataSchemas and their constrcution can be accessed
+via:
+
+-   <https://pubmed.ncbi.nlm.nih.gov/27272186/>
+
+<!-- -->
+
+-   <https://www.integrate.io/blog/complete-guide-to-database-schema-design-guide/>
+
+| column | meaning |
+|------------------------------------|------------------------------------|
+| `variable` | the harmonized variable name (e.g. `age`, `exp_coffee`) |
+| `domain` | a grouping used by `select_domain()` (e.g. `Demographics`) |
+| `type` | `integer` / `float` (documentation + QC) |
+| `description` | the **target coding** every source must land on, e.g. `1=Female, 2=Male` |
+
+**Important:** the DataSchema should include only the constructs the
+user's analysis actually needs. The target coding should be written
+explicitly (what each source is re-coded to). Variables should be
+grouped into domains so that downstream users can pull data from focus
+areas.
+
+## 2. A source map — connecting one source's raw columns to the schema
+
+One source map per data source. Each row explains: *this target variable
+is built from these raw column(s) using this recode rule.*
+
+| column | meaning |
+|------------------------------------|------------------------------------|
+| `target_variable` | must match a `variable` in the DataSchema |
+| `source_columns` | one or more raw columns, `;`-separated |
+| `recode` | a rule name from `list_recodes()` (or one the user `register_recode()`) |
+| `param` | optional argument to the rule (e.g. a value map `1=1;2=2`) |
+| `note` | free text for the user's own documentation |
+
+Example rows:
+
+```         
+target_variable, source_columns,                 recode,          param
+sex,             gender,                          map,             1=1;2=2;3=3
+age,             dob;enrollment_date,             age_from_dates,
+exp_coffee,      coffee_drip;coffee_instant,      gt0,
+high_bp,         high_bp;high_bp_fu,              any_of,
+aspirin,         aspirin;aspirin_fu,              checkbox_any,
+gds_score,       gds1;gds2;...;gds15,             (custom sum rule),
+```
+
+Validate before running:
+
+```{r}
+validate_source_map("peg_map.csv", "dataschema.csv")
+```
+
+### When a built-in rule isn't enough
+
+The user can register a study-specific rule once, then reference it by
+name:
+
+```{r}
+register_recode("race_checkbox", function(df, cols, param = NULL) {
+  # cols are race___1 ... race___98; roll up to one coded race value
+  # ... your logic ...
+})
+```
+
+Built-ins available out of the box: `keep`, `binary`, `numeric`,
+`na_codes`, `map`, `any_of`, `checkbox_any`, `gt0`, `coalesce`,
+`year_of`, `age_from_dates`, `unavailable`.
+
+## 3. dq_metadata — driving the quality report
+
+One row per variable, describing what "valid" means so `dq_report()` can
+eventually grade the harmonized output.
+
+| column | meaning |
+|------------------------------------|------------------------------------|
+| `variable`, `domain` | as in the DataSchema |
+| `data_type` | `integer` / `float` (integrity check) |
+| `admissible_values` | allowed codes, `;`-separated (consistency: inadmissible categories) |
+| `hard_limits` | `min;max` outside which a value is *inadmissible* |
+| `soft_limits` | `min;max` outside which a value is *improbable* |
+
+## 4. Running it
+
+```{r}
+ds <- "dataschema.csv"
+peg <- harmonize_source(source_csv("peg.csv"), "peg_map.csv", ds, source_name = "PEG")
+hbs <- harmonize_source(source_redcap(),       "hbs_map.csv", ds, source_name = "HBS")
+combined <- combine_sources(peg, hbs)
+dq_report(combined, "dq_metadata.csv")
+```
+
+These four steps explain the entire workflow. To add a third cohort
+later, the user will have to write another source map. However, the
+DataSchema, engine, and QC should stay the same.

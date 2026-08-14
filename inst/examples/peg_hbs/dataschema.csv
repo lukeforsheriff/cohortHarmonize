@@ -1,0 +1,99 @@
+variable,domain,type
+sex,Demographics,integer
+age,Demographics,integer
+race,Demographics,integer
+latino,Demographics,boolean
+education,Demographics,integer
+exp_cigarette_ever,Exposures,integer
+exp_cigarette_current,Exposures,integer
+exp_cigarette_start_age,Exposures,decimal
+exp_cigarette_end_age,Exposures,decimal
+exp_cigar_ever,Exposures,integer
+exp_cigar_current,Exposures,integer
+exp_cigar_start_age,Exposures,decimal
+exp_cigar_end_age,Exposures,decimal
+exp_pipe_ever,Exposures,integer
+exp_pipe_current,Exposures,integer
+exp_pipe_start_age,Exposures,decimal
+exp_pipe_end_age,Exposures,decimal
+exp_alcohol,Exposures,boolean
+exp_coffee,Exposures,integer
+exp_tea,Exposures,integer
+exp_soda,Exposures,integer
+exp_farm,Exposures,integer
+exp_pesticide_outside,Exposures,integer
+exp_pesticide_inside,Exposures,integer
+exp_well_water,Exposures,integer
+exp_cigarette_amount,Exposures,decimal
+exp_coffee_amount,Exposures,decimal
+ndg_disease,Health Conditions,integer
+type_ndg_disease,Health Conditions,integer
+parkinsons_disease,Health Conditions,integer
+fam_hist_pd,Health Conditions,boolean
+cancer,Health Conditions,boolean
+type_cancer,Health Conditions,boolean
+stroke,Health Conditions,boolean
+heart_attack,Health Conditions,boolean
+high_blood_pressure,Health Conditions,boolean
+epilepsy,Health Conditions,boolean
+multiple_sclerosis,Health Conditions,boolean
+alzheimers,Health Conditions,boolean
+lou_gehrig,Health Conditions,boolean
+depression,Health Conditions,boolean
+anxiety,Health Conditions,boolean
+ocd,Health Conditions,boolean
+schizophrenia,Health Conditions,boolean
+diabetes,Health Conditions,boolean
+head_injury,Health Conditions,boolean
+lupus,Health Conditions,boolean
+arthritis,Health Conditions,boolean
+type_arthiritis,Health Conditions,boolean
+allergies,Health Conditions,boolean
+other_condition,Health Conditions,boolean
+thyroid_disease,Health Conditions,integer
+family_history_tremor,Health Conditions,integer
+family_history_dementia,Health Conditions,integer
+aspirin,Medications,integer
+baby_aspirin,Medications,integer
+acetaminophen,Medications,integer
+pd_levodopa,Medications,integer
+pd_dopamine_agonist,Medications,integer
+statin,Medications,integer
+female_hormones,Miscellaneous,integer
+gds_1,GDS,integer
+gds_2,GDS,integer
+gds_3,GDS,integer
+gds_4,GDS,integer
+gds_5,GDS,integer
+gds_6,GDS,integer
+gds_7,GDS,integer
+gds_8,GDS,integer
+gds_9,GDS,integer
+gds_10,GDS,integer
+gds_11,GDS,integer
+gds_12,GDS,integer
+gds_13,GDS,integer
+gds_14,GDS,integer
+gds_15,GDS,integer
+gds_score,GDS,integer
+gds_cat,GDS,integer
+completed_mmse,MMSE,integer
+mmse_date,MMSE,integer
+mmse_year,MMSE,integer
+mmse_month,MMSE,integer
+mmse_day,MMSE,integer
+mmse_season,MMSE,integer
+mmse_county,MMSE,integer
+mmse_city,MMSE,integer
+mmse_state,MMSE,integer
+mmse_score,MMSE,decimal
+hy_stage,Hoehn & Yahr,integer
+nm_gastrointestinal,NMSS / SCOPA & UPDRS,integer
+nm_urinary,NMSS / SCOPA & UPDRS,integer
+nm_sleep,NMSS / SCOPA & UPDRS,integer
+nm_cardiovascular,NMSS / SCOPA & UPDRS,integer
+nm_sexual,NMSS / SCOPA & UPDRS,integer
+nm_mood,NMSS / SCOPA & UPDRS,integer
+nm_hallucinations,NMSS / SCOPA & UPDRS,integer
+nm_attention_memory,NMSS / SCOPA & UPDRS,integer
+enrollment_year,Demographics,integer

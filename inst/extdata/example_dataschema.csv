@@ -1,0 +1,4 @@
+variable,domain,type
+sex,Demographics,integer
+age,Demographics,integer
+high_bp,Health Conditions,integer

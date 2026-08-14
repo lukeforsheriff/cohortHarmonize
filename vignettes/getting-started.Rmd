@@ -1,0 +1,53 @@
+---
+title: "Getting started with cohortHarmonize"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with cohortHarmonize}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+library(cohortHarmonize)
+```
+
+A brief end-to-end example on in-memory data.
+
+```{r}
+# --- a target schema (2 variables) ---
+ds <- data.frame(
+  variable = c("sex", "age"),
+  domain   = c("Demographics", "Demographics"),
+  type     = c("integer", "integer")
+)
+
+# --- one source's raw data + its map ---
+raw <- data.frame(
+  record_id = 1:3,
+  gender    = c("F", "M", "F"),
+  dob       = c("1950-01-01", "1960-06-15", "1970-03-20"),
+  visit     = c("2016-01-01", "2016-01-01", "2016-01-01")
+)
+register_recode("sex_text", function(df, cols, param = NULL) {
+  s <- tolower(trimws(as.character(df[[cols[1]]])))
+  ifelse(s %in% c("f", "female"), 1L, ifelse(s %in% c("m", "male"), 2L, NA_integer_))
+})
+map <- data.frame(
+  target_variable = c("sex", "age"),
+  source_columns  = c("gender", "dob;visit"),
+  recode          = c("sex_text", "age_from_dates"),
+  param           = c(NA, NA)
+)
+
+h <- harmonize_source(source_dataframe(raw), map, ds, source_name = "cohortA")
+h
+coverage_report(h)
+```
+
+Read from other formats by swapping the source constructor (e.g. `source_csv("file.csv")`, `source_redcap()`, `source_haven("data.sav")`, or `source_db(conn, table = "t")`). Everything downstream is identical.
+
+See `vignette("creating-a-dataschema")` for the config files, and the README for the federated (multi-site) workflow.

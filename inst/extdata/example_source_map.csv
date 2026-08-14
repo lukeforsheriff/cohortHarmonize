@@ -1,0 +1,4 @@
+target_variable,source_columns,recode,param
+sex,gender,map,1=1;2=2
+age,dob;visit,age_from_dates,
+high_bp,hbp;hbp_fu,any_of,

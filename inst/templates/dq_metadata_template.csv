@@ -1,0 +1,4 @@
+variable,domain,data_type,admissible_values,hard_limits,soft_limits
+sex,Demographics,integer,1;2;3,,
+age,Demographics,integer,,0;120,18;100
+example_condition,Health Conditions,integer,0;1,,
