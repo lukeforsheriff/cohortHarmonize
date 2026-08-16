@@ -1,0 +1,11 @@
+variable,domain,data_type,admissible_values,hard_limits,soft_limits
+age,Demographics,integer,,0;120,40;100
+sex,Demographics,integer,1;2,,
+education,Demographics,integer,1;2;3,,
+self_rated_health,Health,integer,1;2;3;4;5,,
+ever_diabetes,Health,integer,0;1,,
+ever_hypertension,Health,integer,0;1,,
+ever_heart_disease,Health,integer,0;1,,
+bmi,Health,float,,10;70,15;50
+depression_cesd,Mental Health,integer,,0;8,
+current_smoker,Behavior,integer,0;1,,

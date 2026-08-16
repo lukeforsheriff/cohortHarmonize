@@ -1,0 +1,11 @@
+variable,domain,type
+age,Demographics,integer
+sex,Demographics,integer
+education,Demographics,integer
+self_rated_health,Health,integer
+ever_diabetes,Health,integer
+ever_hypertension,Health,integer
+ever_heart_disease,Health,integer
+bmi,Health,float
+depression_cesd,Mental Health,integer
+current_smoker,Behavior,integer

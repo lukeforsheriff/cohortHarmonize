@@ -1,0 +1,11 @@
+target_variable,source_columns,recode,param
+age,r13agey,keep,
+sex,ragender,keep,
+education,raedyrs,edu_years_to_cat,
+self_rated_health,r13shlt,keep,
+ever_diabetes,r13diabe,binary,
+ever_hypertension,r13hibpe,binary,
+ever_heart_disease,r13hearte,binary,
+bmi,r13bmi,numeric,
+depression_cesd,r13cesd,keep,
+current_smoker,r13smoken,binary,

@@ -38,14 +38,25 @@ peg <- harmonize_source(source_dataframe(peg_raw),
                         file.path(EX_DIR, "peg_source_map.csv"), ds,
                         source_name = "PEG", id_col = "PEGID", collapse = FALSE)
 
-## --- 3. HBS: read the fixture (swap for source_redcap() for the real DB) --
+## --- 3. HBS ----------------------------------------------------------------
 options(ch.hbs_visit_date_col = "enrollment_date")   # age = age at enrollment
-hbs <- harmonize_source(source_csv(HBS_CSV),
-                        file.path(EX_DIR, "hbs_source_map.csv"), ds,
-                        source_name = "HBS", id_col = "record_id", collapse = TRUE)
-# For the real HBS database instead of the fixture:
-#   hbs <- harmonize_source(source_redcap(), "hbs_source_map.csv", ds,
-#                           source_name = "HBS", id_col = "record_id")
+
+USE_REAL_HBS <- TRUE   # <<< set TRUE to pull the REAL HBS database via the REDCap API
+
+if (USE_REAL_HBS) {
+  # Prerequisites (one time): install.packages("REDCapR"); and REDCAP_URI + REDCAP_TOKEN
+  # already set in your .Renviron (the same ones you used all summer).
+  # source_redcap() pulls ALL fields for ALL records; harmonize_source() then collapses
+  # REDCap's longitudinal multi-row export to one row per participant and harmonizes.
+  hbs <- harmonize_source(source_redcap(),
+                          file.path(EX_DIR, "hbs_source_map.csv"), ds,
+                          source_name = "HBS", id_col = "record_id")   # collapse = TRUE by default
+} else {
+  # Offline: the bundled synthetic fixture (5 fake records).
+  hbs <- harmonize_source(source_csv(HBS_CSV),
+                          file.path(EX_DIR, "hbs_source_map.csv"), ds,
+                          source_name = "HBS", id_col = "record_id", collapse = TRUE)
+}
 
 ## --- 4. Combine + inspect + quality report -------------------------------
 combined <- combine_sources(peg, hbs)
